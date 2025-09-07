@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import { DatabaseNamespace } from './dto/database-namespace';
 import { Logger } from './utils/logger';
 import { DatabaseConnection } from './database/connection';
+import { IdentityController } from './controllers/identity-controller';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -14,6 +15,7 @@ class App {
   private app: express.Application;
   private logger: Logger;
   private db!: DatabaseConnection;
+  private identityController!: IdentityController;
 
   constructor() {
     this.app = express();
@@ -38,7 +40,9 @@ class App {
     this.db = DatabaseConnection.getInstance(config);
   }
 
-  private initializeServices(): void {}
+  private initializeServices(): void {
+    this.identityController = new IdentityController();
+  }
 
   private initializeMiddleware(): void {
     this.app.use(helmet());
@@ -58,6 +62,7 @@ class App {
 
   private initializeRoutes(): void {
     // Routes to be added
+    this.app.get('/health', this.identityController.health);
 
     this.app.use((req, res) => {
       res.status(404).json({
