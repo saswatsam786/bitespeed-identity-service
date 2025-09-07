@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -11,15 +10,6 @@ import { IdentityController } from './controllers/identity-controller';
 import { Contact } from './models/contact';
 import { IdentityService } from './services/identity-service';
 import migrator from './database/migrate';
-
-// Load environment variables - try specific env file first, then fallback to .env
-const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
-try {
-  dotenv.config({ path: envFile });
-} catch (error) {
-  // Fallback to default .env file if specific env file doesn't exist
-  dotenv.config();
-}
 
 class App {
   private app: express.Application;

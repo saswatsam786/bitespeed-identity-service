@@ -126,7 +126,6 @@ export class IdentityService {
     return await this.buildResponse(remainingPrimary.id!);
   }
 
-  // ✅ NEW METHOD: Check if request is completely covered by existing contacts
   private isRequestCoveredByContacts(
     contacts: InternalNamespace.Contact[],
     request: InternalNamespace.IdentifyRequestBody,
@@ -155,7 +154,6 @@ export class IdentityService {
     return false;
   }
 
-  // ✅ SIMPLIFIED: This method is now only for non-merge scenarios
   private needsNewSecondaryContact(
     existingContacts: InternalNamespace.Contact[],
     request: InternalNamespace.IdentifyRequestBody,
@@ -166,10 +164,9 @@ export class IdentityService {
     );
 
     if (exactMatch) {
-      return false; // Don't create new contact if exact match exists
+      return false;
     }
 
-    // Check if request contains only information that already exists separately
     const emailExists = request.email
       ? existingContacts.some((c) => c.email === request.email)
       : true;
