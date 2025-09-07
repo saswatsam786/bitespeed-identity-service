@@ -48,6 +48,7 @@ export class DatabaseConnection {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async query(text: string, params?: any[]): Promise<any> {
     const client = await this.getClient();
     try {

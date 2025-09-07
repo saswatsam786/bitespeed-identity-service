@@ -16,6 +16,7 @@ export class Contact {
     phoneNumber?: string,
   ): Promise<InternalNamespace.Contact[]> {
     const conditions: string[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const params: any[] = [];
     let paramIndex = 1;
 
@@ -124,6 +125,7 @@ export class Contact {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private mapRowToContact(row: any): InternalNamespace.Contact {
     return {
       id: row.id,
