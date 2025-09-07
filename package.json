@@ -10,7 +10,9 @@
     "build": "tsc -p .",
     "lint": "eslint . --ext .ts",
     "format": "prettier -w .",
-    "typecheck": "tsc -p . --noEmit"
+    "typecheck": "tsc -p . --noEmit",
+    "migrate": "node -r ts-node/register src/database/migrate.ts",
+    "seed": "node -r ts-node/register src/database/seed.ts"
   },
   "keywords": [],
   "author": "Saswat Samal",
