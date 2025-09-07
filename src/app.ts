@@ -77,6 +77,7 @@ class App {
 
   private initializeErrorHandling(): void {
     this.app.use(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
         this.logger.error('Unhandled error', { error: err });
         res.status(500).json({
