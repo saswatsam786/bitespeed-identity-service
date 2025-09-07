@@ -1,9 +1,8 @@
 // @ts-check
-import eslint from 'eslint';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import pluginImport from 'eslint-plugin-import';
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   ...tseslint.configs.recommended,
   {
@@ -11,7 +10,7 @@ export default [
       ecmaVersion: 2022,
       sourceType: 'module',
       globals: {
-        ...eslint.configs.recommended[0].languageOptions?.globals,
+        ...globals.node,
       },
       parserOptions: {
         project: false,

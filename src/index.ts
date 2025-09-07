@@ -1,1 +1,4 @@
-console.log('Hello TypeScript');
+import App from './app';
+
+const app = new App();
+app.start();
