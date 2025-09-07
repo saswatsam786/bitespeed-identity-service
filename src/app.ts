@@ -10,6 +10,7 @@ import { DatabaseConnection } from './database/connection';
 import { IdentityController } from './controllers/identity-controller';
 import { Contact } from './models/contact';
 import { IdentityService } from './services/identity-service';
+import migrator from './database/migrate';
 
 // Load environment variables - try specific env file first, then fallback to .env
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
@@ -113,6 +114,7 @@ class App {
         this.logger.error('Database connection failed');
         process.exit(1);
       }
+      await migrator.runMigrations();
       this.app.listen(port, () => {
         this.logger.info(`Server is running on port ${port}`);
         this.logger.info(`Environment: ${process.env.NODE_ENV}`);

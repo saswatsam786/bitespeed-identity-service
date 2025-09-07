@@ -7,7 +7,7 @@
     "watch": "tsc -w",
     "dev": "NODE_ENV=development nodemon dist/index.js",
     "start": "NODE_ENV=production node dist/index.js",
-    "build": "tsc -p .",
+    "build": "tsc -p . && cp -r src/database/migrations dist/database/ && cp -r src/database/seeds dist/database/ && cp -r src/database/reset dist/database/",
     "lint": "eslint . --ext .ts",
     "format": "prettier -w .",
     "typecheck": "tsc -p . --noEmit",

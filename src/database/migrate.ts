@@ -40,13 +40,18 @@ class Migrator {
 }
 
 const migrator = new Migrator();
-migrator
-  .runMigrations()
-  .then(() => {
-    console.log('Migrations completed');
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error('Failed to run migrations', { error });
-    process.exit(1);
-  });
+export default migrator;
+
+// Only run migrations if this file is executed directly (not imported)
+if (require.main === module) {
+  migrator
+    .runMigrations()
+    .then(() => {
+      console.log('Migrations completed');
+      process.exit(0);
+    })
+    .catch((error) => {
+      console.error('Failed to run migrations', { error });
+      process.exit(1);
+    });
+}

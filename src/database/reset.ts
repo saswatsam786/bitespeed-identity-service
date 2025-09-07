@@ -46,15 +46,18 @@ class DatabaseResetter {
 }
 
 const resetter = new DatabaseResetter();
-resetter
-  .resetDatabase()
-  .then(async () => {
-    console.log('Database reset completed successfully');
-    await resetter.close();
-    process.exit(0);
-  })
-  .catch(async (error) => {
-    console.error('Failed to reset database:', error);
-    await resetter.close();
-    process.exit(1);
-  });
+
+if (require.main === module) {
+  resetter
+    .resetDatabase()
+    .then(async () => {
+      console.log('Database reset completed successfully');
+      await resetter.close();
+      process.exit(0);
+    })
+    .catch(async (error) => {
+      console.error('Failed to reset database:', error);
+      await resetter.close();
+      process.exit(1);
+    });
+}
