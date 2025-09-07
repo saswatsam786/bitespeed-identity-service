@@ -8,6 +8,8 @@ import { DatabaseNamespace } from './dto/database-namespace';
 import { Logger } from './utils/logger';
 import { DatabaseConnection } from './database/connection';
 import { IdentityController } from './controllers/identity-controller';
+import { Contact } from './models/contact';
+import { IdentityService } from './services/identity-service';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -41,7 +43,9 @@ class App {
   }
 
   private initializeServices(): void {
-    this.identityController = new IdentityController();
+    const contactModal = new Contact(this.db);
+    const identityService = new IdentityService(contactModal);
+    this.identityController = new IdentityController(identityService);
   }
 
   private initializeMiddleware(): void {
@@ -63,6 +67,8 @@ class App {
   private initializeRoutes(): void {
     // Routes to be added
     this.app.get('/health', this.identityController.health);
+
+    this.app.post('/identify', this.identityController.identify);
 
     this.app.use((req, res) => {
       res.status(404).json({

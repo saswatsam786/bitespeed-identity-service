@@ -12,7 +12,8 @@
     "format": "prettier -w .",
     "typecheck": "tsc -p . --noEmit",
     "migrate": "node -r ts-node/register src/database/migrate.ts",
-    "seed": "node -r ts-node/register src/database/seed.ts"
+    "seed": "node -r ts-node/register src/database/seed.ts",
+    "reset": "node -r ts-node/register src/database/reset.ts"
   },
   "keywords": [],
   "author": "Saswat Samal",
