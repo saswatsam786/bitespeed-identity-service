@@ -25,7 +25,14 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER update_contacts_updated_at 
-    BEFORE UPDATE ON contacts 
-    FOR EACH ROW 
-    EXECUTE FUNCTION update_updated_at_column();
+DO $$ 
+BEGIN
+    DROP TRIGGER IF EXISTS update_contacts_updated_at ON contacts;
+    CREATE TRIGGER update_contacts_updated_at 
+        BEFORE UPDATE ON contacts 
+        FOR EACH ROW 
+        EXECUTE FUNCTION update_updated_at_column();
+EXCEPTION
+    WHEN others THEN
+        NULL;
+END $$;

@@ -11,7 +11,14 @@ import { IdentityController } from './controllers/identity-controller';
 import { Contact } from './models/contact';
 import { IdentityService } from './services/identity-service';
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+// Load environment variables - try specific env file first, then fallback to .env
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+try {
+  dotenv.config({ path: envFile });
+} catch (error) {
+  // Fallback to default .env file if specific env file doesn't exist
+  dotenv.config();
+}
 
 class App {
   private app: express.Application;
